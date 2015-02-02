@@ -7,6 +7,8 @@ I mainly implemented this to showcase udp hole punching
 npm install -g telephone
 ```
 
+[![build status](http://img.shields.io/travis/mafintosh/telephone.svg?style=flat)](http://travis-ci.org/mafintosh/telephone)
+
 ## Usage
 
 On two machines connected to the internet using a somewhat sane router configuration run
