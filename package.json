@@ -1,6 +1,6 @@
 {
   "name": "telephone",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Like that Lada Gaga song except it is p2p chat over udp.",
   "main": "index.js",
   "dependencies": {
@@ -11,7 +11,7 @@
   "devDependencies": {
     "standard": "^2.3.2"
   },
-  "scripts" : {
+  "scripts": {
     "test": "standard"
   },
   "bin": {
