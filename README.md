@@ -1,6 +1,6 @@
 # telephone
 
-Like that Lada Gaga song except it's p2p chat over udp.
+Like that Lada Gaga song except it is p2p chat over udp.
 I mainly implemented this to showcase udp hole punching
 
 ```

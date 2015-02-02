@@ -1,12 +1,18 @@
 {
   "name": "telephone",
   "version": "0.0.0",
-  "description": "Like that Lada Gaga song except it's p2p chat over udp.",
+  "description": "Like that Lada Gaga song except it is p2p chat over udp.",
   "main": "index.js",
   "dependencies": {
     "compact2string": "^1.4.0",
     "minimist": "^1.1.0",
     "string2compact": "^1.2.1"
+  },
+  "devDependencies": {
+    "standard": "^2.3.2"
+  },
+  "scripts" : {
+    "test": "standard"
   },
   "bin": {
     "telephone": "./client.js",
