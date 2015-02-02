@@ -1,0 +1,25 @@
+{
+  "name": "telephone",
+  "version": "0.0.0",
+  "description": "Like that Lada Gaga song except it's p2p chat over udp.",
+  "main": "index.js",
+  "dependencies": {
+    "compact2string": "^1.4.0",
+    "minimist": "^1.1.0",
+    "string2compact": "^1.2.1"
+  },
+  "bin": {
+    "telephone": "./client.js",
+    "telephone-hole-puncher": "./hole-puncher.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafintosh/telephone.git"
+  },
+  "author": "Mathias Buus (@mafintosh)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mafintosh/telephone/issues"
+  },
+  "homepage": "https://github.com/mafintosh/telephone"
+}
