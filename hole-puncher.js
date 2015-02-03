@@ -8,7 +8,7 @@ var argv = minimist(process.argv)
 var sock = dgram.createSocket('udp4')
 
 if (argv.help) {
-  console.log('Usage: walkie-talkie-hole-puncher [options]')
+  console.log('Usage: telephone-hole-puncher [options]')
   console.log('')
   console.log('  --port, -p  [23232]')
   console.log()

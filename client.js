@@ -11,7 +11,7 @@ var hp = argv.h || 'dev.mathiasbuus.eu:23232'
 var channel = new Buffer(argv.channel || 'broadcast')
 
 if (argv.help) {
-  console.log('Usage: walkie-talkie [options]')
+  console.log('Usage: telephone [options]')
   console.log('')
   console.log('  --hole-puncher, -h  [%s]', hp)
   console.log('  --name, -n          [%s]', os.hostname())
@@ -29,7 +29,9 @@ sock.once('message', function (message, rinfo) {
   peers = compact2string.multi(message).slice(0, -1)
 
   console.log('found %d peer(s) in channel: %s', peers.length, channel.toString())
+  console.log('write a message and press <enter> to send')
 
+  process.stdin.emit('data', new Buffer('(connected)'))
   sock.on('message', function (message, rinfo) {
     if (peers.indexOf(rinfo.address + ':' + rinfo.port) === -1) peers.push(rinfo.address + ':' + rinfo.port)
     console.log('[%s:%d] %s', rinfo.address, rinfo.port, message.toString().trim())
@@ -39,7 +41,7 @@ sock.once('message', function (message, rinfo) {
 process.stdin.on('data', function (data) {
   data = Buffer.concat([new Buffer(me + ': '), data])
   peers.forEach(function (peer) {
-    sock.send(data, 0, data.length, peer.split(':')[1], peer.split(':')[0])
+    sock.send(data, 0, data.length, Number(peer.split(':')[1]), peer.split(':')[0], console.log)
   })
 })
 
