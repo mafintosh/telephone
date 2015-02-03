@@ -23,7 +23,16 @@ if (argv.help) {
 var sock = dgram.createSocket('udp4')
 var peers = []
 
+var PING = new Buffer([0])
+
+var ping = function() {
+  sock.send(PING, 0, PING.length, hp.split(':')[1] || 23232, hp.split(':')[0])
+}
+
 sock.once('message', function (message, rinfo) {
+  if (message.length === 1 && message[0] === 0) return // ping
+  setInterval(ping, 5000)
+
   // quick'n'dirty - first message is from the hole puncher
 
   peers = compact2string.multi(message).slice(0, -1)
@@ -33,6 +42,7 @@ sock.once('message', function (message, rinfo) {
 
   process.stdin.emit('data', new Buffer('(connected)'))
   sock.on('message', function (message, rinfo) {
+    if (message.length === 1 && message[0] === 0) return // ping
     if (peers.indexOf(rinfo.address + ':' + rinfo.port) === -1) peers.push(rinfo.address + ':' + rinfo.port)
     console.log('[%s:%d] %s', rinfo.address, rinfo.port, message.toString().trim())
   })
@@ -41,7 +51,7 @@ sock.once('message', function (message, rinfo) {
 process.stdin.on('data', function (data) {
   data = Buffer.concat([new Buffer(me + ': '), data])
   peers.forEach(function (peer) {
-    sock.send(data, 0, data.length, Number(peer.split(':')[1]), peer.split(':')[0], console.log)
+    sock.send(data, 0, data.length, Number(peer.split(':')[1]), peer.split(':')[0])
   })
 })
 

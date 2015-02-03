@@ -18,14 +18,32 @@ if (argv.help) {
 var pairs = {}
 var timeouts = {}
 
+var PING = new Buffer([0])
+
 sock.on('error', function (err) {
   console.log('error: %s', err.message)
 })
 
 sock.on('message', function (message, rinfo) {
-  var channel = message.toString()
-
   var id = rinfo.address + ':' + rinfo.port
+
+  if (message.length === 1 && message[0] === 0) {
+    Object.keys(pairs).some(function(ch) {
+      var clear = function() {
+        delete pairs[ch]
+      }
+
+      if (pairs[ch][id]) {
+        clearTimeout(timeouts[ch])
+        timeouts[ch] = setTimeout(clear, 10 * 1000)
+        sock.send(PING, 0, PING.length, rinfo.port, rinfo.address)
+        return true
+      }
+    })
+    return
+  }
+
+  var channel = message.toString()
 
   console.log('remembering %s (%s) for a while', id, channel)
 
@@ -36,10 +54,10 @@ sock.on('message', function (message, rinfo) {
     delete pairs[channel]
   }
 
-  clearTimeout(timeouts[id])
-  timeouts[id] = setTimeout(clear, 60 * 1000)
+  clearTimeout(timeouts[channel])
+  timeouts[channel] = setTimeout(clear, 10 * 1000)
 
-  var buf = string2compact(Object.keys(pairs[channel]))
+  var buf = string2compact(Object.keys(pairs[channel]).slice(0, 100))
   sock.send(buf, 0, buf.length, rinfo.port, rinfo.address)
 })
 
