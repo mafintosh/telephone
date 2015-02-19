@@ -28,8 +28,8 @@ sock.on('message', function (message, rinfo) {
   var id = rinfo.address + ':' + rinfo.port
 
   if (message.length === 1 && message[0] === 0) {
-    Object.keys(pairs).some(function(ch) {
-      var clear = function() {
+    Object.keys(pairs).some(function (ch) {
+      var clear = function () {
         delete pairs[ch]
       }
 
@@ -50,7 +50,7 @@ sock.on('message', function (message, rinfo) {
   if (!pairs[channel]) pairs[channel] = {}
   pairs[channel][id] = id
 
-  var clear = function() {
+  var clear = function () {
     delete pairs[channel]
   }
 
@@ -61,6 +61,6 @@ sock.on('message', function (message, rinfo) {
   sock.send(buf, 0, buf.length, rinfo.port, rinfo.address)
 })
 
-sock.bind(argv.port || 23232, function() {
+sock.bind(argv.port || 23232, function () {
   console.log('hole puncher bound to %d', sock.address().port)
 })
