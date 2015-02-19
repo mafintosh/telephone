@@ -25,7 +25,7 @@ var peers = []
 
 var PING = new Buffer([0])
 
-var ping = function() {
+var ping = function () {
   sock.send(PING, 0, PING.length, hp.split(':')[1] || 23232, hp.split(':')[0])
 }
 
