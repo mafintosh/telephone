@@ -14,7 +14,7 @@ npm install -g telephone
 On two machines connected to the internet using a somewhat sane router configuration run
 
 ```
-telephone --hole-puncher dev.mathiasbuus:23232 --channel my-channel
+telephone --hole-puncher dev.mathiasbuus.eu:23232 --channel my-channel
 ```
 
 The above example uses the hole puncher running on my test digital ocean machine.
